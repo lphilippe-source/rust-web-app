@@ -1,6 +1,6 @@
 use postgres::{Client, NoTls};
 use crate::controller::{get_id, get_user_request_body};
-use crate::{DB_URL, domain, INTERNAL_ERROR, OK_RESPONSE};
+use crate::{DB_URL, domain::*, INTERNAL_ERROR, OK_RESPONSE};
 
 pub fn update_user(request: &str) -> (String, String) {
     match
@@ -12,12 +12,12 @@ pub fn update_user(request: &str) -> (String, String) {
     {
         (Ok(id), Ok(user), Ok(mut client)) => {
 
-            let domain::UserField::Name(name) = user.get_name() else{
+            let user_dto::UserField::Name(name) = user.get_name() else{
                 log::error!("{:?}",user.get_name());
                 return (INTERNAL_ERROR.to_string(), "Name is not set".to_string());
             };
 
-            let domain::UserField::Email(email) = user.get_email() else{
+            let user_dto::UserField::Email(email) = user.get_email() else{
                 log::error!("{:?}",user.get_email());
                 return (INTERNAL_ERROR.to_string(), "Email is not set".to_string());
             };
