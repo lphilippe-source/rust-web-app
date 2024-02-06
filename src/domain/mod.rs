@@ -43,7 +43,6 @@ impl UserDto{
             email: Some(email),
         }
     }
-
     pub fn get_id(&self) -> UserField {
         match &self.id {
             Some(id) => UserField::Id(*id),
