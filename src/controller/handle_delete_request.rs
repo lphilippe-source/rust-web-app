@@ -1,9 +1,9 @@
 use postgres::{Client, NoTls};
-use crate::controller::get_id;
+use crate::service::user_service;
 use crate::{DB_URL, INTERNAL_ERROR, NOT_FOUND, OK_RESPONSE};
 
 pub fn delete_user(request: &str) -> (String, String) {
-    match (get_id(&request).parse::<i32>(), Client::connect(&DB_URL, NoTls)) {
+    match (user_service::get_id(&request).parse::<i32>(), Client::connect(&DB_URL, NoTls)) {
         (Ok(id), Ok(mut client)) => {
             let rows_affected = client.execute("DELETE FROM users WHERE id = $1", &[&id]).unwrap();
 

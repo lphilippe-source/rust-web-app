@@ -2,6 +2,8 @@ mod db;
 mod domain;
 mod router;
 mod controller;
+mod service;
+mod persistence;
 
 use std::net:: TcpListener;
 // use std::env;

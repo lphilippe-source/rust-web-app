@@ -18,8 +18,8 @@ pub fn handle_client(mut stream: TcpStream) {
             let (status_line, content) = match &*request {
                 r if r.starts_with("OPTIONS") => (OK_RESPONSE.to_string(), "".to_string()),
                 r if r.starts_with("POST /api/rust/users") => post_user(r),
-                r if r.starts_with("GET /api/rust/users/") => get_one_user(r),
-                r if r.starts_with("GET /api/rust/users") => get_all_user(r),
+                r if r.starts_with("GET /api/rust/user/") => get_one_user(r),
+                r if r.starts_with("GET /api/rust/users") => get_all_users(r),
                 r if r.starts_with("PUT /api/rust/users/") => update_user(r),
                 r if r.starts_with("DELETE /api/rust/users/") => delete_user(r),
                 _ => (NOT_FOUND.to_string(), "404 not found".to_string()),
