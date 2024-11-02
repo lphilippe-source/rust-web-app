@@ -1,12 +1,15 @@
 use postgres::{Client, NoTls};
-use crate::controller::{get_id, get_user_request_body};
+use crate::service::user_service;
 use crate::{DB_URL, domain::*, INTERNAL_ERROR, OK_RESPONSE};
 
 pub fn update_user(request: &str) -> (String, String) {
+
+    // log::error!("{:?}",get_id(&request).parse::<i32>());
+    // log::error!("{:?}",get_user_request_body(&request));
     match
     (
-        get_id(&request).parse::<i32>(),
-        get_user_request_body(&request),
+        user_service::get_id(&request).parse::<i32>(),
+        user_service::get_user_request_body(&request),
         Client::connect(&DB_URL, NoTls),
     )
     {

@@ -1,8 +1,9 @@
 use postgres::{Client, NoTls};
-use crate::controller::get_user_request_body;
+use crate::service::user_service;
 use crate::{DB_URL,domain::*, INTERNAL_ERROR, OK_RESPONSE};
+
 pub fn post_user(request: &str) -> (String, String) {
-    match (get_user_request_body(request), Client::connect(&DB_URL, NoTls)) {
+    match (user_service::get_user_request_body(request), Client::connect(&DB_URL, NoTls)) {
         (Ok(user), Ok(mut client)) => {
             // Insert the user and retrieve the ID
 
